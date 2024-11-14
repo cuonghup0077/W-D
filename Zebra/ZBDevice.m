@@ -76,6 +76,24 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
 #endif
 }
 
++ (BOOL)supportsUserspaceReboot {
+    // all detectable iOS 14+ jailbreaks support userspace reboots
+    if (@available(iOS 14, *)) {
+        if (self.jailbreak != ZBJailbreakUnknown && self.jailbreak != ZBJailbreakSimulated) {
+            return YES;
+        }
+    }
+    
+    switch (self.jailbreak) {
+        case ZBJailbreakCheckra1n:
+        case ZBJailbreakChimera:
+        case ZBJailbreakOdyssey:
+        case ZBJailbreakAmethyst: return YES;
+        default: break;
+    }
+    return NO;
+}
+
 + (BOOL)isSlingshotBroken:(NSError *_Nullable*_Nullable)error {
 #if TARGET_OS_SIMULATOR
     return NO; //Since simulated devices don't have su/sling, it isn't broken!
@@ -247,7 +265,7 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
 
 + (void)restartDevice {
     if (![self needsSimulation]) {
-        if (@available(iOS 15, *)) {
+        if ([self supportsUserspaceReboot]) {
             // Try userspace reboot
             NSLog(@"[Zebra] Trying userspace reboot");
             if ([ZBCommand execute:@"launchctl" withArguments:@[@"reboot", @"userspace"] asRoot:YES]) {
@@ -345,7 +363,10 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
         @"/.installed_g0blin":     @(ZBJailbreakG0blin),
         @"/.installed_p0insettia": @(ZBJailbreakP0insettia),
         @"/cores/binpack/.installed_overlay": @(ZBJailbreakBakera1n),
+        @"/.installed_amethyst": @(ZBJailbreakAmethyst),
+        @"/.installed_apex": @(ZBJailbreakApex)
     };
+    
     NSDictionary <NSString *, NSNumber *> *jailbreakInstalledDirs = @{
         @"/binpack":      @(ZBJailbreakCheckra1n),
         @"/electra":      @(ZBJailbreakElectra),
@@ -439,6 +460,8 @@ static ZBBootstrap bootstrap = ZBBootstrapUnknown;
     case ZBJailbreakMineekJB:    return @"mineekJB";
     case ZBJailbreakBakera1n:    return @"bakera1n";
     case ZBJailbreakP0insettia:  return @"p0insettia";
+    case ZBJailbreakAmethyst:    return @"Amethyst";
+    case ZBJailbreakApex:        return @"Apex";
     }
 }
 

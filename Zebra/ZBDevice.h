@@ -41,7 +41,9 @@ typedef NS_ENUM(NSUInteger, ZBJailbreak) {
     ZBJailbreakMineekJB64,
     ZBJailbreakMineekJB,
     ZBJailbreakBakera1n,
-    ZBJailbreakP0insettia
+    ZBJailbreakP0insettia,
+    ZBJailbreakAmethyst,
+    ZBJailbreakApex
 };
 
 typedef NS_ENUM(NSUInteger, ZBBootstrap) {
@@ -75,6 +77,7 @@ NS_ASSUME_NONNULL_BEGIN
 + (NSString *)debianArchitecture;
 + (nullable NSString *)packageManagementBinary;
 + (NSString *)path;
++ (BOOL)supportsUserspaceReboot;
 
 + (void)hapticButton;
 

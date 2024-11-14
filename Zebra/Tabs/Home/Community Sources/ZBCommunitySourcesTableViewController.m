@@ -196,6 +196,24 @@
                             @"url" : @"https://ellekit.space/",
                             @"icon": @"https://ellekit.space/CydiaIcon.png"}];
         break;
+            
+    case ZBJailbreakAmethyst:
+        [result addObject:@{@"type": @"utility",
+                            @"name": @"Procursus",
+                            @"url" : @"https://apt.procurs.us/",
+                            @"icon": @"https://apt.procurs.us/CydiaIcon.png"}];
+        break;
+            
+    case ZBJailbreakApex:
+        [result addObject:@{@"type": @"utility",
+                            @"name": @"Procursus",
+                            @"url" : @"https://apt.procurs.us/",
+                            @"icon": @"https://apt.procurs.us/CydiaIcon.png"}];
+        [result addObject:@{@"type": @"utility",
+                            @"name": @"Odyssey Repo",
+                            @"url" : @"https://repo.theodyssey.dev/",
+                            @"icon": @"https://repo.theodyssey.dev/CydiaIcon.png"}];
+        break;
 
 
     default:
